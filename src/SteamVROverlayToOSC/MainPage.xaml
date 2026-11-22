@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SteamVROverlayToOSC.MainPage"
+             Title="OSC Output">
+    <VerticalStackLayout Padding="24" Spacing="12">
+        <Label Text="SteamVR Overlay to OSC" FontSize="24" />
+        <Entry x:Name="HostEntry" Text="127.0.0.1" Placeholder="OSC host" />
+        <Entry x:Name="PortEntry" Text="9000" Placeholder="OSC port" Keyboard="Numeric" />
+        <Button Text="Start background worker" Clicked="OnStartClicked" />
+        <Button Text="Send test OSC message" Clicked="OnSendClicked" />
+        <Label x:Name="StatusLabel" Text="Stopped" />
+    </VerticalStackLayout>
+</ContentPage>
