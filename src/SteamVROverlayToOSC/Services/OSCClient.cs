@@ -3,13 +3,12 @@ using System.Net.Sockets;
 using System.Text;
 using System.Buffers.Binary;
 
-namespace SteamVROverlayToOSC;
+namespace SteamVROverlayToOSC.Services;
 
 public sealed class OSCClient : IDisposable
 {
     private readonly object _sync = new();
     private UdpClient? _client;
-    private IPEndPoint _endpoint;
 
     public OSCClient() : this("127.0.0.1", 9000) { }
 
@@ -87,24 +86,24 @@ public sealed class OSCClient : IDisposable
             switch (argument)
             {
                 case int value:
-                    Span<byte> bytes = stackalloc byte[4];
+                    var bytes = new byte[4];
                     BinaryPrimitives.WriteInt32BigEndian(bytes, value);
                     output.Write(bytes);
                     break;
                 case float value:
-                    Span<byte> bytes = stackalloc byte[4];
-                    BinaryPrimitives.WriteInt32BigEndian(bytes, BitConverter.SingleToInt32Bits(value));
-                    output.Write(bytes);
+                    var floatbytes = new byte[4];
+                    BinaryPrimitives.WriteInt32BigEndian(floatbytes, BitConverter.SingleToInt32Bits(value));
+                    output.Write(floatbytes);
                     break;
                 case double value:
-                    Span<byte> bytes = stackalloc byte[8];
-                    BinaryPrimitives.WriteInt64BigEndian(bytes, BitConverter.DoubleToInt64Bits(value));
-                    output.Write(bytes);
+                    var doublebytes = new byte[8];
+                    BinaryPrimitives.WriteInt64BigEndian(doublebytes, BitConverter.DoubleToInt64Bits(value));
+                    output.Write(doublebytes);
                     break;
                 case long value:
-                    Span<byte> bytes = stackalloc byte[8];
-                    BinaryPrimitives.WriteInt64BigEndian(bytes, value);
-                    output.Write(bytes);
+                    var longbytes = new byte[8];
+                    BinaryPrimitives.WriteInt64BigEndian(longbytes, value);
+                    output.Write(longbytes);
                     break;
                 case string value:
                     WritePaddedString(output, value);

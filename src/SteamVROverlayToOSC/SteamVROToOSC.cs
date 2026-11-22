@@ -1,6 +1,8 @@
+using SteamVROverlayToOSC.Services;
+
 namespace SteamVROverlayToOSC;
 
-public static class MauiProgram
+public static class SteamVROToOSC
 {
     public static MauiApp CreateMauiApp()
     {
